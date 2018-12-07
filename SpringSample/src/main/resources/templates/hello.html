@@ -1,15 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"/>
 	<title>Hello</title>
 </head>
 <body>
 	<h1>Hello World. asdf</h1>
 	<p th:text="${sample}"></p>
-	<form method="post" action="./hello">
-	<input type="text" name="input-text" th:value="${input_value}"/>
-	<input type="submit" value="クリック"/>
+	<p th:text="${id}"></p>
+	<p th:text="${name}"></p>
+	<p th:text="${age}"></p>
+	<form method="post" th:action="@{/hello}">
+		<input type="text" name="input-text" th:value="${input_value}"/>
+		<input type="submit" value="クリック"/>
+	</form>
+	<br/>
+	<form method="post" th:action="@{/hello/db}">
+		employee-id:<input type="text" name="input-text" th:value="${input_value}"/>
+		<input type="submit" value="クリック"/>
 	</form>
 </body>
 </html>
