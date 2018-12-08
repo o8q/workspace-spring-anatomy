@@ -1,5 +1,7 @@
 package com.example.demo.ctrl;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,16 +37,16 @@ public class HelloCtrl {
 	@PostMapping("/hello/db")
 	public String postHelloDb(@RequestParam("input-text") String inputValue, Model model) {
 		log.debug("hello/db was called. method is post. request parameter is [{}].", inputValue);
-		EmployeeEntity entity = service.findOne(Integer.parseInt( inputValue));
+		Optional<EmployeeEntity> opt = service.findOne(Integer.parseInt( inputValue));
 		model.addAttribute("sample", inputValue);
-		if (entity == null) {
+		if (!opt.isPresent()) {
 			model.addAttribute("sample", inputValue + ": there is no employee.");
 			return ("hello");
 		}
+		EmployeeEntity entity = opt.get();
 		model.addAttribute("id", entity.getId());
 		model.addAttribute("name", entity.getName());
 		model.addAttribute("age", entity.getAge());
-
 		return ("hello");
 	}
 }
